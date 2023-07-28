@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# this for kills 7-highland "invincible" process
+kill -KILL "$(pgrep -f ./7-highlander)"
