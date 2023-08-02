@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# This for Display listening Socket with PID and Name of the program to each Socket Belong
+netstat -lp
