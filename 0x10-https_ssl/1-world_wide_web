@@ -1,0 +1,23 @@
+global
+        log /dev/log    local0
+	stats socket /run/haproxy/admin.sock mode 660 level admin
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+	timeout connect  10s
+	timeout client  30s
+	timeout server  30s
+
+frontend epip.tech-frontend
+	bind *:80
+	bind *:443 ssl crt /etc/haproxy/certs/epip.tech.pem
+	http-request redirect scheme https unless { ssl_fc }
+	http-request set-header X-Forwarded-Proto https
+	default_backend epip.tech-backend
+
+backend epip.tech-backend
+	balance roundrobin
+	server 352119-web-01 54.237.114.58:80 check
+	server 352119-web-02 100.25.190.26:80 check
